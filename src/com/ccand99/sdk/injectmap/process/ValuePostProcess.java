@@ -15,9 +15,16 @@ import java.util.Map;
  */
 public class ValuePostProcess implements PostProcess{
 
-    public static final String KEY_PROJECT = "项目";
+    String keyProject = "项目";
 
     private final List<Convert> converts = new ArrayList<>(2);
+
+    public ValuePostProcess() {
+    }
+
+    public ValuePostProcess(String keyProject ) {
+        this.keyProject = keyProject;
+    }
 
     @Override
     public void register(Convert convert){
@@ -26,7 +33,7 @@ public class ValuePostProcess implements PostProcess{
 
     @Override
     public <T> void process(T obj, Map<String,String> source){
-        String project = source.get(KEY_PROJECT);
+        String project = source.get(keyProject);
         for (Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             Value annotation = field.getAnnotation(Value.class);
